@@ -37,14 +37,14 @@
         {
           "output_type": "execute_result",
           "execution_count": 0,
-          "data": "The price for a 300I from inlimbo35's database is $60.00 USD. The Redeemer is listed at a price of $330.00 USD. If you decide to purchase, do keep in mind that prices can fluctuate and it's best to confirm on the official website.",
+          "data": "The price of the 125A according to inlimbo35's database is 60.0 USD. Please note that prices can fluctuate, and the last updated time for this item was on 2024-05-13 03:07 EST. For the most up-to-date prices and availability, I encourage you to check the [Roberts Space Industries website](https://robertsspaceindustries.com/store/pledge/browse/extras?search=125A&sort=price&direction=desc).",
           "metadata": {
-            "created": 1715221033,
-            "id": "chatcmpl-9MndJqZ5IDzglw6ieMLMaghiCq5wz",
+            "id": "chatcmpl-9OZT26ACXJEQijwosVtCxoIgURnT8",
+            "created": 1715643236,
             "model": "gpt-4-1106-vision-preview",
             "object": "chat.completion.chunk",
             "raw_response": {
-              "content": "The price for a 300I from inlimbo35's database is $60.00 USD. The Redeemer is listed at a price of $330.00 USD. If you decide to purchase, do keep in mind that prices can fluctuate and it's best to confirm on the official website.",
+              "content": "The price of the 125A according to inlimbo35's database is 60.0 USD. Please note that prices can fluctuate, and the last updated time for this item was on 2024-05-13 03:07 EST. For the most up-to-date prices and availability, I encourage you to check the [Roberts Space Industries website](https://robertsspaceindustries.com/store/pledge/browse/extras?search=125A&sort=price&direction=desc).",
               "role": "assistant"
             },
             "role": "assistant"
