@@ -11,9 +11,9 @@ import streamlit as st
 from openai import OpenAI
 from aiconfig import AIConfigRuntime, CallbackManager, CallbackEvent, InferenceOptions
 import psycopg2
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
-load_dotenv()
+#load_dotenv()
 
 def get_db_connection():
     #database_url = os.environ['DATABASE_URL']
