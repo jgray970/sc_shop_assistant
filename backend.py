@@ -117,6 +117,7 @@ async def generate(query, context, prompt):
     }
     inference_options = InferenceOptions(stream=True)
     output = await config.run_and_get_output_text(prompt, params=params, run_with_dependencies=True, options=inference_options)
+    config.save('sc-shop-assist.aiconfig.json', include_outputs=True)
     return output
 
 async def run_query(item_query, prompt="generate"):

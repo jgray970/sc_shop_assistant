@@ -7,3 +7,4 @@ archive/
 .devcontainer/
 __pycache__/
 aiconfig.log
+.streamlit/
