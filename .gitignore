@@ -8,3 +8,4 @@ archive/
 __pycache__/
 aiconfig.log
 .streamlit/
+.DS_Store
