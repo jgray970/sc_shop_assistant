@@ -1,6 +1,14 @@
 # Star Citizen (SC) Shop Assistant
 
-The SC Shop Assistant serves as a way for players to get more conveniently get prices from the Roberts Space Industries website
+The SC Shop Assistant serves as a way for players to more conveniently get prices from the Roberts Space Industries website. Users can request price information for 400+ items in seconds from a pre-populated list of available items. Once a user selects the item they'd like to get the price for, they will be notified of the last time the price was updated and encouraged to visit the Roberts Space Industries website for the most up-to-date price information. The user will be provided with a direct link to the item for purchase and further details.
+
+## Feature Backlog
+
+### `Enable Freeform Text Input`
+
+Allow the user to communicate with LLM and ask unstructured questions.
+- What is the highest priced item available? 
+- What can I buy with $50? 
 
 ## File Descriptions
 
@@ -26,4 +34,4 @@ The web_scrape_db_load.py script combines web scraping with database operations 
 
 ### `scraping_data_.db`
 
-A prefilled SQLite database file that can be used to test locally. Adjusting the backend and frontend files to point to local environment secrets will enable the ability to scrape data with web_scrape_db_load.py and land in a local db. For end-user testing and production focuses, a hosted db (heroku, aws, etc.) is suggested. All SQL syntax in relevant .py files should be adjusted to point to SQLite db instead of PostgeSQL db.
+A prefilled SQLite database file that can be used to test locally. Adjusting the backend and frontend files to point to local environment secrets while enabling the ability to scrape data with web_scrape_db_load.py and land in a local db. For end-user testing and production focuses, a hosted db (heroku, aws, etc.) is suggested. All SQL syntax in relevant .py files should be adjusted to point to SQLite db instead of PostgeSQL db.
