@@ -17,7 +17,7 @@ load_dotenv()
 
 def get_db_connection():
     #database_url = os.environ['DATABASE_URL']
-    databse_url = st.secrets["DATABASE_URL"]
+    database_url = st.secrets["DATABASE_URL"]
     return psycopg2.connect(database_url, sslmode='require')
 
 api_key = st.secrets["OPENAI_API_KEY"]
