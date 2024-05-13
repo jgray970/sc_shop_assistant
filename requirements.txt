@@ -1,4 +1,5 @@
 streamlit
 pytz
-openai 
+openai
+psycopg2
 python-aiconfig
