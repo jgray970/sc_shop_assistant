@@ -1,8 +1,8 @@
 .env
-venv
+venv/
 editor_flask_server.log
 log.txt
-archive
-.vscode
-.devcontainer
-__pycache__
+archive/
+.vscode/
+.devcontainer/
+__pycache__/
