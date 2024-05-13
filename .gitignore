@@ -1,0 +1,8 @@
+.env
+venv
+editor_flask_server.log
+log.txt
+archive
+.vscode
+.devcontainer
+__pycache__
