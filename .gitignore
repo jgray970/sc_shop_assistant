@@ -6,3 +6,4 @@ archive/
 .vscode/
 .devcontainer/
 __pycache__/
+aiconfig.log
