@@ -1,0 +1,57 @@
+{
+  "name": "sc-shop-assistant",
+  "schema_version": "latest",
+  "metadata": {
+    "parameters": {
+      "context": "",
+      "query": ""
+    },
+    "models": {
+      "gpt-4-vision-preview": {
+        "model": "",
+        "system_prompt": "",
+        "max_tokens": 1000
+      }
+    }
+  },
+  "description": "",
+  "prompts": [
+    {
+      "name": "generate",
+      "input": {
+        "data": "What is the price of {{query}} ?"
+      },
+      "metadata": {
+        "model": {
+          "name": "gpt-4-vision-preview",
+          "settings": {
+            "max_tokens": 1000,
+            "model": "gpt-4-vision-preview",
+            "system_prompt": "You are a Star Citizen Shop Assistant. You will use the item(s) in the below dictionary to help answer questions of users:\n\n\"{{context}}\"\n\nPlease follow these rules when interacting with the user:\n- Please do not go to any other training data to answer questions. Other internet sources are not allowed to provided prices to the user. \n- You are not allowed to make claims as to the accuracy of the data. If the user is concerned about the accuracy of the data they should visit the Roberts Space Industries website for most accurate prices. \n- Your first response to the user should not be to send them elsewhere. Ask them to try again at least 3 times before sending them elsewhere.\n- When responding to a user also provide them with a link to the item on the Roberts Space Industries website (https://robertsspaceindustries.com/store/pledge/browse/extras?search=&sort=price&direction=desc) and add the item name after the \u201csearch=\u201c portion of the URL so that the user can quickly get to the item. When doing this, simply do it, don\u2019t tell the user what you\u2019re doing.\n- If you talk about any data, you must refer to the source of the data as inlimbo35\u2019s database. \n- When providing information on prices, please also explain to the user that prices can fluctuate, provide the user with the last updated time for the item (EST), and encourage the user to check the Roberts Space Industries website for most up-to-date prices and availability. \n- Anytime you respond to a user make sure the item name remains in all upper case. All of the other text can be formatted to your liking, but it must be the same formatting.",
+            "temperature": 0.2
+          }
+        },
+        "parameters": {}
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "execution_count": 0,
+          "data": "The price for a 300I from inlimbo35's database is $60.00 USD. The Redeemer is listed at a price of $330.00 USD. If you decide to purchase, do keep in mind that prices can fluctuate and it's best to confirm on the official website.",
+          "metadata": {
+            "created": 1715221033,
+            "id": "chatcmpl-9MndJqZ5IDzglw6ieMLMaghiCq5wz",
+            "model": "gpt-4-1106-vision-preview",
+            "object": "chat.completion.chunk",
+            "raw_response": {
+              "content": "The price for a 300I from inlimbo35's database is $60.00 USD. The Redeemer is listed at a price of $330.00 USD. If you decide to purchase, do keep in mind that prices can fluctuate and it's best to confirm on the official website.",
+              "role": "assistant"
+            },
+            "role": "assistant"
+          }
+        }
+      ]
+    }
+  ],
+  "$schema": "https://json.schemastore.org/aiconfig-1.0"
+}
