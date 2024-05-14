@@ -41,5 +41,12 @@ if st.button('Get Answer'):
         st.error("Please select or search for an item.")
 
 # Optional footer
-# st.image('path/to/your/image.jpg', caption='Image caption')
-# st.write('Your footer text here')
+st.markdown("""
+<div style="text-align: center;">
+    <img src="/streamlit/static/images/MadeByTheCommunity_Black.png" width="400" alt="Community Made Image" style="margin-top: 10px;">
+    <p style="margin-top: 5px;">Copyright © 2024 In Limbo Gaming, LLC</p>
+</div>
+""", unsafe_allow_html=True)
+
+
+
