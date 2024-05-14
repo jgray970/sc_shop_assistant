@@ -35,7 +35,7 @@ if mode == 'Search':
     if user_input:
         suggestions = [item for item in item_names if user_input.lower() in item.lower()]
         selected_item = st.selectbox("Choose a Ship or Item to get the price for:", suggestions)
-elif mode == 'Select from List':
+elif mode == 'Select From List':
     selected_item = st.selectbox("Choose a Ship or Item to get the price for:", item_names)
 
 def get_response(item_name):
