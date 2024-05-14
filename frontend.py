@@ -27,7 +27,7 @@ img {
 item_names = get_item_names()
 
 # Interaction mode selection
-mode = st.radio("Would you like to search or select from a list?:", ('Search', 'Select from List'))
+mode = st.radio("Would you like to search for an item or select from a list?:", ('Search', 'Select From List'))
 selected_item = None
 
 if mode == 'Search':
