@@ -34,4 +34,4 @@ The web_scrape_db_load.py script combines web scraping with database operations 
 
 ### `scraping_data_.db`
 
-A prefilled SQLite database file that can be used to test locally. Adjusting the backend and frontend files to point to local environment secrets while enabling the ability to scrape data with web_scrape_db_load.py and land in a local db. For end-user testing and production focuses, a hosted db (heroku, aws, etc.) is suggested. All SQL syntax in relevant .py files should be adjusted to point to SQLite db instead of PostgeSQL db.
+A prefilled SQLite database file that can be used to test locally. Adjusting the backend and frontend files to point to local environment secrets while enabling the ability to scrape data with web_scrape_db_load.py and land in a local db. For end-user testing and production focuses, a hosted db (aws, azure, etc.) is suggested. All SQL syntax in relevant .py files should be adjusted to point to SQLite db instead of PostgeSQL db.
