@@ -37,14 +37,14 @@
         {
           "output_type": "execute_result",
           "execution_count": 0,
-          "data": "The price of the NOMAD according to inlimbo35's database is 80.0 USD. Please note that prices can fluctuate, and the last updated time for this item was on 2024-05-15 01:26 EST. For the most up-to-date prices and availability, I encourage you to check the Roberts Space Industries website. Here is the link for your convenience: [NOMAD on RSI](https://robertsspaceindustries.com/store/pledge/browse/extras?search=NOMAD)",
+          "data": "The price of the 100I according to inlimbo35's database is 50.0 USD. Please note that prices can fluctuate. The last updated time for this item was on 2024-05-15 01:26 EST. For the most up-to-date prices and availability, I encourage you to check the Roberts Space Industries website. Here is the direct link to the 100I on their store: [100I at RSI](https://robertsspaceindustries.com/store/pledge/browse/extras?search=100I&sort=price&direction=desc).",
           "metadata": {
-            "id": "chatcmpl-9P2V26H3vhNognqXNF6Mhs5KpAIlU",
-            "created": 1715754836,
+            "id": "chatcmpl-9P30pc761As9vJNkZjumqbNz8TrQW",
+            "created": 1715756807,
             "model": "gpt-4-1106-vision-preview",
             "object": "chat.completion.chunk",
             "raw_response": {
-              "content": "The price of the NOMAD according to inlimbo35's database is 80.0 USD. Please note that prices can fluctuate, and the last updated time for this item was on 2024-05-15 01:26 EST. For the most up-to-date prices and availability, I encourage you to check the Roberts Space Industries website. Here is the link for your convenience: [NOMAD on RSI](https://robertsspaceindustries.com/store/pledge/browse/extras?search=NOMAD)",
+              "content": "The price of the 100I according to inlimbo35's database is 50.0 USD. Please note that prices can fluctuate. The last updated time for this item was on 2024-05-15 01:26 EST. For the most up-to-date prices and availability, I encourage you to check the Roberts Space Industries website. Here is the direct link to the 100I on their store: [100I at RSI](https://robertsspaceindustries.com/store/pledge/browse/extras?search=100I&sort=price&direction=desc).",
               "role": "assistant"
             },
             "role": "assistant"

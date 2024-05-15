@@ -4,17 +4,9 @@ from backend import process_user_query, get_item_names
 from PIL import Image
 import re
 
-# Load and display the image once
-@st.cache_resource
-def load_image():
-    return Image.open("streamlit/static/images/MadeByTheCommunity_Black.png")
-
-try:
-    image = load_image()
-    st.image(image, use_column_width=True)
-except OSError:
-    st.error("Error loading image. Please check the file path and format.")
-
+# Load and display the image
+image = Image.open("streamlit/static/images/MadeByTheCommunity_Black.png")
+st.image(image, use_column_width=True)
 
 # Custom CSS to center the title, text, and image
 st.markdown("""
@@ -36,11 +28,12 @@ img {
 """, unsafe_allow_html=True)
 
 # Fetch item names for the dropdown
-item_names = get_item_names()
+item_names = ["Begin typing to search..."] + get_item_names()
 
 # Select item from the list with search functionality
 selected_item = st.selectbox(
-    label="",
+    label="Search or Select from List below",
+    label_visibility="hidden",
     options=item_names
 )
 
@@ -52,7 +45,7 @@ def get_response(item_name):
     return result
 
 if st.button('Get Answer'):
-    if selected_item:
+    if selected_item and selected_item != "Begin typing to search...":
         with st.spinner("Checking Limbo's database..."):
             response = get_response(selected_item)
             st.write(response)
@@ -71,8 +64,7 @@ st.markdown("""
 
 # Feedback form link
 st.markdown("""
-<div style="text-align: center; margin-top: 10px;">
+<div style="text-align: center; margin-top: -2px;">
     <a href="https://forms.gle/iXmBBBXvybmabUbj7" target="_blank">Provide Feedback</a>
 </div>
 """, unsafe_allow_html=True)
-
