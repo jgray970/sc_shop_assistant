@@ -9,8 +9,12 @@ import re
 def load_image():
     return Image.open("streamlit/static/images/MadeByTheCommunity_Black.png")
 
-image = load_image()
-st.image(image, use_column_width=True)
+try:
+    image = load_image()
+    st.image(image, use_column_width=True)
+except OSError:
+    st.error("Error loading image. Please check the file path and format.")
+
 
 # Custom CSS to center the title, text, and image
 st.markdown("""
@@ -32,12 +36,11 @@ img {
 """, unsafe_allow_html=True)
 
 # Fetch item names for the dropdown
-item_names = ["Begin typing to search..."] + get_item_names()
+item_names = get_item_names()
 
 # Select item from the list with search functionality
 selected_item = st.selectbox(
-    label="Search or Select from List below",
-    label_visibility="hidden",
+    label="",
     options=item_names
 )
 
@@ -49,7 +52,7 @@ def get_response(item_name):
     return result
 
 if st.button('Get Answer'):
-    if selected_item and selected_item != "Begin typing to search...":
+    if selected_item:
         with st.spinner("Checking Limbo's database..."):
             response = get_response(selected_item)
             st.write(response)
@@ -68,7 +71,8 @@ st.markdown("""
 
 # Feedback form link
 st.markdown("""
-<div style="text-align: center; margin-top: -2px;">
+<div style="text-align: center; margin-top: 10px;">
     <a href="https://forms.gle/iXmBBBXvybmabUbj7" target="_blank">Provide Feedback</a>
 </div>
 """, unsafe_allow_html=True)
+
