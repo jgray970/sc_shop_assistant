@@ -36,7 +36,8 @@ item_names = ["Begin typing to search..."] + get_item_names()
 
 # Select item from the list with search functionality
 selected_item = st.selectbox(
-    label='',
+    label="Search or Select from List below",
+    label_visibility="hidden",
     options=item_names
 )
 
