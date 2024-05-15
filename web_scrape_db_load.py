@@ -11,6 +11,12 @@ load_dotenv()
 
 database_url = os.environ.get('DATABASE_URL')
 
+try:
+    conn = psycopg2.connect(database_url, sslmode='require')
+    print("Database connection successful")
+    conn.close()
+except Exception as e:
+    print(f"Database connection failed: {e}")
 
 def get_db_connection():
     return psycopg2.connect(database_url, sslmode='require')

@@ -2,6 +2,15 @@ import streamlit as st
 import asyncio
 from backend import process_user_query, get_item_names
 from PIL import Image
+import re
+
+# Load and display the image once
+@st.cache_resource
+def load_image():
+    return Image.open("streamlit/static/images/MadeByTheCommunity_Black.png")
+
+image = load_image()
+st.image(image, use_column_width=True)
 
 # Custom CSS to center the title, text, and image
 st.markdown("""
@@ -20,23 +29,16 @@ img {
 <div class="centered-text">
     This tool helps you retrieve the price of "Extras" from the Roberts Space Industries website.
 </div>
-<br>  <!-- Adding a line break here -->
 """, unsafe_allow_html=True)
 
 # Fetch item names for the dropdown
-item_names = get_item_names()
+item_names = ["Begin typing to search..."] + get_item_names()
 
-# Interaction mode selection
-mode = st.radio("Would you like to search for an item or select from a list?:", ('Search', 'Select From List'))
-selected_item = None
-
-if mode == 'Search':
-    user_input = st.text_input("Type to search for a Ship or Item", help="Type to search for a ship or item.")
-    if user_input:
-        suggestions = [item for item in item_names if user_input.lower() in item.lower()]
-        selected_item = st.selectbox("Choose a Ship or Item to get the price for:", suggestions)
-elif mode == 'Select From List':
-    selected_item = st.selectbox("Choose a Ship or Item to get the price for:", item_names)
+# Select item from the list with search functionality
+selected_item = st.selectbox(
+    label='',
+    options=item_names
+)
 
 def get_response(item_name):
     loop = asyncio.new_event_loop()
@@ -46,16 +48,15 @@ def get_response(item_name):
     return result
 
 if st.button('Get Answer'):
-    if selected_item:
+    if selected_item and selected_item != "Begin typing to search...":
         with st.spinner("Checking Limbo's database..."):
             response = get_response(selected_item)
             st.write(response)
     else:
-        st.error("Please select or search for an item.")
+        st.error("Please select an item from the list.")
 
-# Load and display the image
-image = Image.open("streamlit/static/images/MadeByTheCommunity_Black.png")
-st.image(image, use_column_width=True)
+# Add extra space before the footer
+st.markdown("<br><br>", unsafe_allow_html=True)
 
 # Footer
 st.markdown("""
@@ -66,7 +67,7 @@ st.markdown("""
 
 # Feedback form link
 st.markdown("""
-<div style="text-align: center; margin-top: 20px;">
+<div style="text-align: center; margin-top: -2px;">
     <a href="https://forms.gle/iXmBBBXvybmabUbj7" target="_blank">Provide Feedback</a>
 </div>
 """, unsafe_allow_html=True)
