@@ -3,10 +3,18 @@ import asyncio
 from backend import process_user_query, get_item_names
 from PIL import Image
 import re
+import os
 
-# Load and display the image
-image = Image.open("streamlit/static/images/MadeByTheCommunity_Black.png")
-st.image(image, use_column_width=True)
+# Define the image path
+image_path = "streamlit/static/images/MadeByTheCommunity_Black.png"
+
+# Check if the image file exists
+if os.path.exists(image_path):
+    # Load and display the image
+    image = Image.open(image_path)
+    st.image(image, use_column_width=True)
+else:
+    st.error(f"Image file not found at path: {image_path}")
 
 # Custom CSS to center the title, text, and image
 st.markdown("""
