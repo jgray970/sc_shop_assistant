@@ -35,7 +35,7 @@ def initialize_db():
         )
     ''')
     
-    # Drop and recreate LLMQueryLog table to ensure clean setup
+    # Create LLMQueryLog table to ensure clean setup
     cursor.execute('''
     CREATE TABLE LLMQueryLog (
         ID SERIAL PRIMARY KEY,
