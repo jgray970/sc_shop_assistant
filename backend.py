@@ -106,7 +106,12 @@ def sanitize_text(text):
     return html.unescape(text)
 
 def serialize_retrieved_data(data):
-    out = {sanitize_text(row[0]): {"Price": row[1], "CurrencyCode": row[2], "LastUpdated": format_last_updated(row[3])} for row in data}
+    out = {}
+    for row in data:
+        item_name = sanitize_text(row[0])
+        if item_name not in out:
+            out[item_name] = []
+        out[item_name].append({"Price": row[1], "CurrencyCode": row[2], "LastUpdated": format_last_updated(row[3])})
     return out
 
 async def generate(query, context, prompt):
