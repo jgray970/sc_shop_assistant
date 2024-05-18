@@ -1,8 +1,6 @@
 from playwright.sync_api import sync_playwright
-import sqlite3
-from datetime import datetime
-import time
 import psycopg2
+import time
 from datetime import datetime
 import os
 from dotenv import load_dotenv
@@ -11,54 +9,61 @@ load_dotenv()
 
 database_url = os.environ.get('DATABASE_URL')
 
-try:
-    conn = psycopg2.connect(database_url, sslmode='require')
-    print("Database connection successful")
-    conn.close()
-except Exception as e:
-    print(f"Database connection failed: {e}")
-
 def get_db_connection():
     return psycopg2.connect(database_url, sslmode='require')
 
-
-def update_database(conn, item_name, price, currency_code):
+def update_database(conn, item_name, price, currency_code, existing_items):
     cursor = conn.cursor()
     now = datetime.now()
 
     try:
-        # Fetch existing records for the given item name using PostgreSQL's placeholder %s
-        cursor.execute("SELECT ID, Price, CurrencyCode, LastUpdated FROM Items WHERE ItemName = %s ORDER BY LastUpdated ASC", (item_name,))
+        cursor.execute("SELECT ID, ItemName, Price, CurrencyCode, LastUpdated FROM Items WHERE ItemName = %s ORDER BY LastUpdated ASC", (item_name,))
         records = cursor.fetchall()
+
+        existing_items.add((item_name, price))
 
         print(f"Found {len(records)} records for item name {item_name}.")  # Debugging output
 
         if not records:
-            # No records exist, insert new one using PostgreSQL's placeholder %s
             cursor.execute("INSERT INTO Items (ItemName, Price, CurrencyCode, LastUpdated) VALUES (%s, %s, %s, %s)",
                            (item_name, price, currency_code, now))
             conn.commit()
             print(f"Inserted new record for {item_name}.")
-
-        elif len(records) == 1:
-            # One record exists, check the price
-            if records[0][1] != price:
-                # Price is different, insert new record using PostgreSQL's placeholder %s
+        else:
+            current_prices = {record[2] for record in records}
+            if price not in current_prices:
                 cursor.execute("INSERT INTO Items (ItemName, Price, CurrencyCode, LastUpdated) VALUES (%s, %s, %s, %s)",
                                (item_name, price, currency_code, now))
                 conn.commit()
-                print(f"Inserted new record for {item_name} due to price change.")
+                print(f"Inserted new record for {item_name} with a new price {price}.")
             else:
-                # Price is the same, do not update the timestamp
                 print("No update needed for existing record as price is unchanged.")
-
-        else:
-            # Handle multiple records if necessary (your original code managed up to 2)
-            print("Handling multiple records is not implemented in this snippet.")
 
     except Exception as e:
         conn.rollback()
         print(f"Failed to update database: {e}")
+    finally:
+        cursor.close()
+
+def archive_nonexistent_items(conn, existing_items):
+    cursor = conn.cursor()
+    now = datetime.now()
+
+    try:
+        cursor.execute("SELECT ID, ItemName, Price, CurrencyCode, LastUpdated FROM Items")
+        records = cursor.fetchall()
+
+        for record in records:
+            if (record[1], record[2]) not in existing_items:
+                cursor.execute("INSERT INTO Archive (ItemName, Price, CurrencyCode, LastUpdated) VALUES (%s, %s, %s, %s)",
+                               (record[1], record[2], record[3], record[4]))
+                cursor.execute("DELETE FROM Items WHERE ID = %s", (record[0],))
+                print(f"Archived record for {record[1]} with price {record[2]} as it no longer exists in the current scrape.")
+
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        print(f"Failed to archive non-existent items: {e}")
     finally:
         cursor.close()
 
@@ -75,7 +80,6 @@ def scroll_slowly(page):
             page_height = page.evaluate("document.documentElement.scrollHeight")
             print(f"Attempt {attempts + 1}: Current scroll position: {current_scroll}, Page height: {page_height}")
 
-            # Check if current scroll position is the same as the last scroll position
             if current_scroll == last_scroll_position:
                 print("No more scroll possible, end of page reached.")
                 break
@@ -98,6 +102,8 @@ with sync_playwright() as p:
     conn = get_db_connection()
     browser = p.chromium.launch(headless=False, slow_mo=50)
     page = browser.new_page()
+    existing_items = set()
+
     try:
         page.goto("https://robertsspaceindustries.com/store/pledge/browse/extras?sort=weight&direction=desc")
         page.is_visible('div.ItemWidget-image')
@@ -122,8 +128,11 @@ with sync_playwright() as p:
             integer = price_elements[i].query_selector("span.Price-price-integer").inner_text().strip()
             decimal = price_elements[i].query_selector("span.Price-decimals").inner_text().strip()
             currency_code = price_elements[i].query_selector("span.Price-currency-code").inner_text().strip()
-            price = integer + decimal
-            update_database(conn, item_name, price, currency_code)
+            price = float(integer + decimal)
+            update_database(conn, item_name, price, currency_code, existing_items)
+
+        # Archive items that no longer exist
+        archive_nonexistent_items(conn, existing_items)
 
     except Exception as e:
         print("An error occurred while processing items:", e)
